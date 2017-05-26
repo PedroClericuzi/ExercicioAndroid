@@ -1,9 +1,8 @@
 package com.example.pedroclericuzi.exercicioandroid.adapter;
 import com.example.pedroclericuzi.exercicioandroid.R;
-import com.example.pedroclericuzi.exercicioandroid.model.parserJSON;
+import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,11 +17,11 @@ import java.util.ArrayList;
  * Created by pedroclericuzi on 25/05/2017.
  */
 
-public class adapter_parse extends ArrayAdapter<parserJSON>{
-    private ArrayList<parserJSON> lista_livros;
+public class adapter_parse extends ArrayAdapter<modelJSON>{
+    private ArrayList<modelJSON> lista_livros;
     private Context context;
 
-    public adapter_parse(Context context, ArrayList<parserJSON> lista_livros) {
+    public adapter_parse(Context context, ArrayList<modelJSON> lista_livros) {
         super(context, R.layout.inflater_filmes, lista_livros);
         this.lista_livros = lista_livros;
         this.context = context;
@@ -34,7 +33,7 @@ public class adapter_parse extends ArrayAdapter<parserJSON>{
     }
 
     @Override
-    public int getPosition(@Nullable parserJSON item) {
+    public int getPosition(@Nullable modelJSON item) {
         return super.getPosition(item);
     }
 
@@ -51,7 +50,7 @@ public class adapter_parse extends ArrayAdapter<parserJSON>{
         TextView titulo = (TextView) view.findViewById(R.id.tv_titulo);
         TextView data = (TextView) view.findViewById(R.id.tv_data);
 
-        parserJSON parse = (parserJSON) getItem(position);
+        modelJSON parse = (modelJSON) getItem(position);
         titulo.setText(parse.getTitulo());
         data.setText(parse.getData());
 

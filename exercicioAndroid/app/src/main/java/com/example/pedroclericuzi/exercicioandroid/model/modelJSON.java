@@ -4,13 +4,13 @@ package com.example.pedroclericuzi.exercicioandroid.model;
  * Created by pedroclericuzi on 25/05/2017.
  */
 
-public class parserJSON {
+public class modelJSON {
 
     private String titulo;
     private String data;
     private String link;
 
-    public parserJSON(String titulo, String data, String link) {
+    public modelJSON(String titulo, String data, String link) {
         this.titulo = titulo;
         this.data = data;
         this.link = link;
