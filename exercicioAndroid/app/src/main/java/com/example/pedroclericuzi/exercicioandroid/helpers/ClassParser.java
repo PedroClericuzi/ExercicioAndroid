@@ -1,4 +1,5 @@
 package com.example.pedroclericuzi.exercicioandroid.helpers;
+import com.example.pedroclericuzi.exercicioandroid.model.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,14 +13,17 @@ import java.util.ArrayList;
 
 public class ClassParser {
 
-    public ArrayList<String> Parser(String s) throws JSONException {
-         ArrayList<String> parser = new ArrayList<>();
+    public ArrayList<modelJSON> Parser(String s) throws JSONException {
+        ArrayList<modelJSON> parser = new ArrayList<modelJSON>();
         JSONObject jo = new JSONObject(s);
         JSONArray filmes = jo.getJSONArray("filmes");
         //https://www.tutorialspoint.com/android/android_json_parser.htm
         for (int i = 0; i<filmes.length();i++){
-            JSONObject nome = filmes.getString("nome");
-            parser.add(String.valueOf(nome));
+            JSONObject objArr = filmes.getJSONObject(i);
+            String titulo = objArr.getString("nome");
+            String ano = objArr.getString("ano");
+            String link = objArr.getString("link");
+            parser.add(new modelJSON(titulo, ano, link));
         }
         return parser;
     }

@@ -37,6 +37,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        new LivrosSync().execute(urlJson);
+        new LivrosSync(listView, this).execute(urlJson);
     }
 }
