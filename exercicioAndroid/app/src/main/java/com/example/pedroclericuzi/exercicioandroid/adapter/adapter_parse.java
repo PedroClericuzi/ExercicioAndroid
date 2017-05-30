@@ -46,7 +46,7 @@ public class adapter_parse extends ArrayAdapter<modelJSON>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = LayoutInflater.from(context).inflate(R.layout.inflater_filmes, parent, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.inflater_filmes, parent, false);
         TextView titulo = (TextView) view.findViewById(R.id.tv_titulo);
         TextView data = (TextView) view.findViewById(R.id.tv_data);
 

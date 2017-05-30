@@ -13,9 +13,9 @@ import java.net.URL;
  * Created by pedroclericuzi on 26/05/2017.
  */
 
-public class BaixarLivro {
+public class BaixarFilme {
 
-    public String ListaLivros (String url) throws IOException {
+    public String ListaFilmes(String url) throws IOException {
         String file = "";
         InputStream in = null;
         try {
