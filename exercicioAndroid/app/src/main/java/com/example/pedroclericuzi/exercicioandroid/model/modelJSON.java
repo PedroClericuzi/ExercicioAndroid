@@ -9,11 +9,23 @@ public class modelJSON {
     private String titulo;
     private String data;
     private String link;
-
+    private String atualizado;
+    private int id;
     public modelJSON(String titulo, String data, String link) {
         this.titulo = titulo;
         this.data = data;
         this.link = link;
+    }
+
+    public modelJSON() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -38,5 +50,13 @@ public class modelJSON {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getAtualizado() {
+        return atualizado;
+    }
+
+    public void setAtualizado(String atualizado) {
+        this.atualizado = atualizado;
     }
 }

@@ -1,18 +1,21 @@
 package com.example.pedroclericuzi.exercicioandroid.helpers;
+import com.example.pedroclericuzi.exercicioandroid.data.DBFilmes;
+import com.example.pedroclericuzi.exercicioandroid.data.DBHelper;
+import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ListView;
 
-import com.example.pedroclericuzi.exercicioandroid.R;
-import com.example.pedroclericuzi.exercicioandroid.activities.MainActivity;
-import com.example.pedroclericuzi.exercicioandroid.sync.LivrosSync;
+import com.example.pedroclericuzi.exercicioandroid.data.DBFilmes;
+import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by pedroclericuzi on 29/05/2017.
@@ -55,11 +58,29 @@ public class ServiceLoading extends Service{
                 super.run();
                 try {
                     while (running){
-                        //Log.d("Script log", "COUTN "+count);
-                        sleep(10000);
+                        BaixarFilme baixarLivro = new BaixarFilme();
+                        ClassParser classParser = new ClassParser();
+                        String conteudo = baixarLivro.ListaFilmes(urlJson);
+                        DBFilmes dbFilmes = new DBFilmes(getApplicationContext());
+                        ArrayList<modelJSON> arrayList = classParser.Parser(conteudo);
+                        modelJSON model = new modelJSON();
+                        dbFilmes.clearAll();
+                        for (int i=0;i<arrayList.size();i++){
+                            Log.d("Script log", "COUTN "+arrayList.get(i).getTitulo());
+                            model.setTitulo(arrayList.get(i).getTitulo());
+                            model.setData(arrayList.get(i).getData());
+                            model.setLink(arrayList.get(i).getLink());
+                            model.setAtualizado("false");
+                            dbFilmes.insert(model);
+                        }
+                        sleep(5000);
                     }
                     stopSelf();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
