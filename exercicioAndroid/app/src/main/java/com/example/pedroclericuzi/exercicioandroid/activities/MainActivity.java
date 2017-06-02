@@ -3,14 +3,24 @@ import com.example.pedroclericuzi.exercicioandroid.adapter.*;
 import com.example.pedroclericuzi.exercicioandroid.helpers.*;
 import com.example.pedroclericuzi.exercicioandroid.data.*;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.pedroclericuzi.exercicioandroid.R;
+import com.example.pedroclericuzi.exercicioandroid.interfaces.FilmesListner;
 import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
 import com.example.pedroclericuzi.exercicioandroid.sync.ConteudoSync;
 
@@ -24,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Intent it;
     ArrayAdapter adaper;
     private ListView listView;
-    private final String urlJson = "http://androidjsonteste.esy.es/filmes.json";
+    DBFilmes dbFilmes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +44,20 @@ public class MainActivity extends AppCompatActivity {
         startService(it);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //new ConteudoSync(MainActivity.this).execute(urlJson);
-
-    }
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent it) {
+            updateUI(it);
+        }
+    };
 
     @Override
     protected void onResume() {
         super.onResume();
-        DBFilmes dbFilmes = new DBFilmes(MainActivity.this);
-        adaper = new adapter_parse(MainActivity.this, dbFilmes.search(json_model));
-        listView.setAdapter(adaper);
+        //new ConteudoSync(MainActivity.this).execute(urlJson);
+        try {
+            registerReceiver(broadcastReceiver, new IntentFilter(ServiceLoading.BROADCAST_ACTION));
+        } catch (Exception e){ }
     }
 
     @Override
@@ -54,4 +65,25 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         stopService(it);
     }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(broadcastReceiver);
+        super.onStop();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void updateUI(Intent intent) {
+        dbFilmes = new DBFilmes(MainActivity.this);
+        adaper = new adapter_parse(MainActivity.this, dbFilmes.search(json_model));
+        listView.setAdapter(adaper);
+        adaper.notifyDataSetChanged();
+    }
+
 }

@@ -5,6 +5,7 @@ import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.ListView;
@@ -23,8 +24,11 @@ import java.util.ArrayList;
 
 public class ServiceLoading extends Service{
     private final String urlJson = "http://androidjsonteste.esy.es/filmes.json";
+    public static final String BROADCAST_ACTION = "com.example.pedroclericuzi.exercicioandroid.helpers.displayevent";
+    Intent intent;
     public Boolean running = true;
     ListView listView;
+    private final Handler handler = new Handler();
     @Override
     public IBinder onBind(Intent intent) {
         Log.d("Script log", "onBind");
@@ -35,6 +39,7 @@ public class ServiceLoading extends Service{
     public void onCreate() {
         super.onCreate();
         Log.d("Script log", "onCreate");
+        intent = new Intent(BROADCAST_ACTION);
     }
 
     @Override
@@ -44,46 +49,29 @@ public class ServiceLoading extends Service{
         running = false;
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("Script log", "onStartCommand");
-        this.getThread();
-        return super.onStartCommand(intent, flags, startId);
+    private Runnable sendUpdatesToUI = new Runnable() {
+        public void run() {
+            DisplayLoggingInfo();
+            handler.postDelayed(this, 5000); // 10 seconds
+        }
+    };
+
+    private void DisplayLoggingInfo() {
+        ThreadLivros threadLivros = new ThreadLivros();
+        threadLivros.getThread(running, getApplicationContext());
+        sendBroadcast(intent);
     }
 
-    public void getThread(){
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                try {
-                    while (running){
-                        BaixarFilme baixarLivro = new BaixarFilme();
-                        ClassParser classParser = new ClassParser();
-                        String conteudo = baixarLivro.ListaFilmes(urlJson);
-                        DBFilmes dbFilmes = new DBFilmes(getApplicationContext());
-                        ArrayList<modelJSON> arrayList = classParser.Parser(conteudo);
-                        modelJSON model = new modelJSON();
-                        dbFilmes.clearAll();
-                        for (int i=0;i<arrayList.size();i++){
-                            Log.d("Script log", "COUTN "+arrayList.get(i).getTitulo());
-                            model.setTitulo(arrayList.get(i).getTitulo());
-                            model.setData(arrayList.get(i).getData());
-                            model.setLink(arrayList.get(i).getLink());
-                            model.setAtualizado("false");
-                            dbFilmes.insert(model);
-                        }
-                        sleep(5000);
-                    }
-                    stopSelf();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+//        Log.d("Script log", "onStartCommand");
+//        //this.getThread();
+//        ThreadLivros threadLivros = new ThreadLivros();
+//        threadLivros.getThread(running, getApplicationContext());
+        Log.d("Script log", "onStartCommand");
+        handler.removeCallbacks(sendUpdatesToUI);
+        handler.postDelayed(sendUpdatesToUI, 5000);
+        Log.d("Script log", "onStartCommand 222");
+        return super.onStartCommand(intent, flags, startId);
     }
 }

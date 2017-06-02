@@ -3,7 +3,7 @@
     package="com.example.pedroclericuzi.exercicioandroid">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>-->
 
     <application
         android:allowBackup="true"
@@ -20,15 +20,11 @@
             </intent-filter>
         </activity>
 
-        <receiver
+        <!--<receiver
             android:name="com.example.pedroclericuzi.exercicioandroid.helpers.BroadcastJSON"
             android:enabled="true"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+            android:exported="false">
+        </receiver>-->
 
         <service
             android:name=".helpers.ServiceLoading"
