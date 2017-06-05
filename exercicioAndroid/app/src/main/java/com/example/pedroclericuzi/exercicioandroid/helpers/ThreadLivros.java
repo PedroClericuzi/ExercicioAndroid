@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public class ThreadLivros {
-    private final String urlJson = "http://androidjsonteste.esy.es/filmes.json";
+    private final String urlJson = "https://www.dropbox.com/s/vv50krexlh2hc39/filmes.json?dl=0";//"http://androidjsonteste.esy.es/filmes.json";
     public void getThread(final boolean running, final Context context){
         new Thread(){
             @Override
