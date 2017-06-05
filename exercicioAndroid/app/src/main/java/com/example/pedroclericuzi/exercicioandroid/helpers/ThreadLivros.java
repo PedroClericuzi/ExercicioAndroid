@@ -16,7 +16,8 @@ import java.util.ArrayList;
  */
 
 public class ThreadLivros {
-    private final String urlJson = "https://www.dropbox.com/s/vv50krexlh2hc39/filmes.json?dl=0";//"http://androidjsonteste.esy.es/filmes.json";
+    private final String urlJson = "https://dl.dropboxusercontent.com/s/vv50krexlh2hc39/filmes.json?dl=0";
+    //https://raw.githubusercontent.com/PedroClericuzi/ExercicioAndroid/master/filmes.json
     public void getThread(final boolean running, final Context context){
         new Thread(){
             @Override
@@ -24,28 +25,30 @@ public class ThreadLivros {
                 super.run();
                 try {
                     while (running){
-                        sleep(5000);
+                        //sleep(5000);
                         BaixarFilme baixarLivro = new BaixarFilme();
                         ClassParser classParser = new ClassParser();
                         String conteudo = baixarLivro.ListaFilmes(urlJson);
                         DBFilmes dbFilmes = new DBFilmes(context);
                         ArrayList<modelJSON> arrayList = classParser.Parser(conteudo);
-                        modelJSON model = new modelJSON();
                         dbFilmes.clearAll();
+                        modelJSON model = new modelJSON();
                         for (int i=0;i<arrayList.size();i++){
-                            Log.d("Script log", "COUTN "+arrayList.get(i).getTitulo());
-                            model.setTitulo(arrayList.get(i).getTitulo());
-                            model.setData(arrayList.get(i).getData());
-                            model.setLink(arrayList.get(i).getLink());
-                            model.setAtualizado("false");
-                            dbFilmes.insert(model);
+                            try {
+                                Log.d("Script log", "COUTN "+arrayList.get(i).getTitulo());
+                                model.setTitulo(arrayList.get(i).getTitulo());
+                                model.setData(arrayList.get(i).getData());
+                                model.setLink(arrayList.get(i).getLink());
+                                model.setAtualizado("false");
+                                dbFilmes.insert(model);
+                            } catch (Exception e){
+                                Log.d("ERRO", "O erro é " + e);
+                            }
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }

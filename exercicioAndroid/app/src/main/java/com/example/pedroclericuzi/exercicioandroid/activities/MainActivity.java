@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.lista_filmes);
-        it = new Intent(this, ServiceLoading.class);
-        startService(it);
+
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -52,23 +51,28 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @Override
+    protected void onStart() {
+        it = new Intent(this, ServiceLoading.class);
+        startService(it);
+        super.onStart();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         //new ConteudoSync(MainActivity.this).execute(urlJson);
         try {
-            registerReceiver(broadcastReceiver, new IntentFilter(ServiceLoading.BROADCAST_ACTION));
+            registerReceiver(broadcastReceiver, new IntentFilter(IntentServiceLoading.BROADCAST_ACTION));
         } catch (Exception e){ }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopService(it);
-    }
-
-    @Override
     protected void onStop() {
-        unregisterReceiver(broadcastReceiver);
+        //unregisterReceiver(broadcastReceiver);
+//        Intent it = new Intent(this, IntentServiceLoading.class);
+//        it.putExtra("desligar", 1);
+//        startService(it);
+        stopService(it);
         super.onStop();
     }
 

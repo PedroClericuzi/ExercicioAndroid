@@ -52,7 +52,7 @@ public class ServiceLoading extends Service{
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             DisplayLoggingInfo();
-            handler.postDelayed(this, 5000); // 10 seconds
+            handler.postDelayed(this, 10000); // 10 seconds
         }
     };
 
@@ -70,7 +70,7 @@ public class ServiceLoading extends Service{
 //        threadLivros.getThread(running, getApplicationContext());
         Log.d("Script log", "onStartCommand");
         handler.removeCallbacks(sendUpdatesToUI);
-        handler.postDelayed(sendUpdatesToUI, 5000);
+        handler.postDelayed(sendUpdatesToUI, 10000);
         Log.d("Script log", "onStartCommand 222");
         return super.onStartCommand(intent, flags, startId);
     }

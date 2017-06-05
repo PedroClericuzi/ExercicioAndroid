@@ -26,7 +26,6 @@ public class DBFilmes {
     }
 
     public void insert(modelJSON model){
-//        sqLiteDatabase.execSQL(dbHelper.TABELA);
         contentValues = new ContentValues();
         contentValues.put(dbHelper.TITULO, model.getTitulo());
         contentValues.put(dbHelper.URL, model.getLink());
