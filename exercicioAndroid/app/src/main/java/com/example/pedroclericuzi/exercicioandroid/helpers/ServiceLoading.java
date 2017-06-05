@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class ServiceLoading extends Service{
-    private final String urlJson = "http://androidjsonteste.esy.es/filmes.json";
+    private final String urlJson = "https://dl.dropboxusercontent.com/s/vv50krexlh2hc39/filmes.json?dl=0";
     public static final String BROADCAST_ACTION = "com.example.pedroclericuzi.exercicioandroid.helpers.displayevent";
     Intent intent;
     public Boolean running = true;

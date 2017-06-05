@@ -45,10 +45,13 @@ public class ThreadLivros {
                                 Log.d("ERRO", "O erro é " + e);
                             }
                         }
+                        Thread.sleep(3000);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }

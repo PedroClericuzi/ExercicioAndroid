@@ -43,7 +43,7 @@ public class IntentServiceLoading extends IntentService {
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             DisplayLoggingInfo();
-            handler.postDelayed(this, 5000); // 10 seconds
+            handler.postDelayed(this, 3000); // 10 seconds
         }
     };
 
@@ -73,7 +73,7 @@ public class IntentServiceLoading extends IntentService {
         while(stopAll && ativo){
             try {
                 handler.removeCallbacks(sendUpdatesToUI);
-                handler.postDelayed(sendUpdatesToUI, 5000);
+                handler.postDelayed(sendUpdatesToUI, 3000);
                 Thread.sleep(3000);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
