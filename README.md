@@ -9,4 +9,3 @@
 | Lista com services e broadcast |  **sim**   |
 | Notificações em primeiro plano |  **não**   |
 | Notificações em segundo plano  |  **não**   |
-| Alarmar com notificações 		 |  **não**   |
