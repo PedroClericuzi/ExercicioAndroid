@@ -1,31 +1,23 @@
 package com.example.pedroclericuzi.exercicioandroid.activities;
+import com.example.pedroclericuzi.exercicioandroid.Service.others.IntentServiceLoading;
 import com.example.pedroclericuzi.exercicioandroid.adapter.*;
 import com.example.pedroclericuzi.exercicioandroid.helpers.*;
 import com.example.pedroclericuzi.exercicioandroid.data.*;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.pedroclericuzi.exercicioandroid.R;
-import com.example.pedroclericuzi.exercicioandroid.interfaces.FilmesListner;
+import com.example.pedroclericuzi.exercicioandroid.Service.ServiceLoading;
 import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
-import com.example.pedroclericuzi.exercicioandroid.sync.ConteudoSync;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -62,17 +54,17 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         //new ConteudoSync(MainActivity.this).execute(urlJson);
         try {
-            registerReceiver(broadcastReceiver, new IntentFilter(IntentServiceLoading.BROADCAST_ACTION));
+            registerReceiver(broadcastReceiver, new IntentFilter(ServiceLoading.BROADCAST_ACTION));
         } catch (Exception e){ }
     }
 
     @Override
     protected void onStop() {
-        //unregisterReceiver(broadcastReceiver);
-//        Intent it = new Intent(this, IntentServiceLoading.class);
-//        it.putExtra("desligar", 1);
-//        startService(it);
-        stopService(it);
+        unregisterReceiver(broadcastReceiver);
+        Intent it = new Intent(this, IntentServiceLoading.class);
+        it.putExtra("desligar", 1);
+        startService(it);
+        //stopService(it);
         super.onStop();
     }
 

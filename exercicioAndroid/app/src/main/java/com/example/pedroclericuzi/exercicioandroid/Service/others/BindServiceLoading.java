@@ -1,19 +1,13 @@
-package com.example.pedroclericuzi.exercicioandroid.helpers;
+package com.example.pedroclericuzi.exercicioandroid.Service.others;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.pedroclericuzi.exercicioandroid.activities.MainActivity;
-import com.example.pedroclericuzi.exercicioandroid.adapter.adapter_parse;
-import com.example.pedroclericuzi.exercicioandroid.data.DBFilmes;
 import com.example.pedroclericuzi.exercicioandroid.interfaces.FilmesListner;
-import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
 
 import java.util.ArrayList;
 import java.util.List;

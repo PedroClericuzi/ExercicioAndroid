@@ -1,4 +1,4 @@
-package com.example.pedroclericuzi.exercicioandroid.helpers;
+package com.example.pedroclericuzi.exercicioandroid.Service.others;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -8,20 +8,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.example.pedroclericuzi.exercicioandroid.data.DBFilmes;
-import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
-
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import com.example.pedroclericuzi.exercicioandroid.helpers.ThreadLivros;
 
 /**
  * Created by pedroclericuzi on 01/06/2017.
  */
 
 public class IntentServiceLoading extends IntentService {
-    private final String urlJson = "https://dl.dropboxusercontent.com/s/vv50krexlh2hc39/filmes.json?dl=0";
+    private final String urlJson = "http://androidjsonteste.esy.es/filmes.json";
     public static final String BROADCAST_ACTION = "com.example.pedroclericuzi.exercicioandroid.helpers.displayevent";
     Intent intent;
     public Boolean running = true;

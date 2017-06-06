@@ -41,4 +41,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(droptable);
         onCreate(db);
     }
+
+    @Override
+    public synchronized void close() {
+        super.close();
+    }
+
+    public SQLiteDatabase open() {
+        return super.getWritableDatabase();
+    }
 }
