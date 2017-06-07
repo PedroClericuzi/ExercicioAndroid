@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.lista_filmes);
-
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -79,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         adaper = new adapter_parse(MainActivity.this, dbFilmes.search(json_model));
         listView.setAdapter(adaper);
         adaper.notifyDataSetChanged();
+
+        Notifications notifications = new Notifications();
+        notifications.Notificar(MainActivity.this);
+
     }
 
 }
