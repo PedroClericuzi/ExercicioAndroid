@@ -1,10 +1,9 @@
-package com.example.pedroclericuzi.exercicioandroid.Service.others;
+package com.example.pedroclericuzi.exercicioandroid.service.others;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
 

@@ -27,7 +27,7 @@
         </receiver>-->
 
         <service
-            android:name=".Service.ServiceLoading"
+            android:name=".service.ServiceLoading"
             android:enabled="true"
             android:exported="false">
         </service>

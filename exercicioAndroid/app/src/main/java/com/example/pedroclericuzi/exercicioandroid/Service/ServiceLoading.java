@@ -1,4 +1,4 @@
-package com.example.pedroclericuzi.exercicioandroid.Service;
+package com.example.pedroclericuzi.exercicioandroid.service;
 import com.example.pedroclericuzi.exercicioandroid.helpers.ThreadLivros;
 
 import android.app.Service;

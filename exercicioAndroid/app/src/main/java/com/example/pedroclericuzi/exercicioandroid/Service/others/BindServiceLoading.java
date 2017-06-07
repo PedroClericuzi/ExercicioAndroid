@@ -1,4 +1,4 @@
-package com.example.pedroclericuzi.exercicioandroid.Service.others;
+package com.example.pedroclericuzi.exercicioandroid.service.others;
 
 import android.app.Service;
 import android.content.Intent;

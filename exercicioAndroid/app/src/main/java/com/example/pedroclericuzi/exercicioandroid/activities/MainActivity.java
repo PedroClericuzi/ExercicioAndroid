@@ -1,5 +1,4 @@
 package com.example.pedroclericuzi.exercicioandroid.activities;
-import com.example.pedroclericuzi.exercicioandroid.Service.others.IntentServiceLoading;
 import com.example.pedroclericuzi.exercicioandroid.adapter.*;
 import com.example.pedroclericuzi.exercicioandroid.helpers.*;
 import com.example.pedroclericuzi.exercicioandroid.data.*;
@@ -16,7 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.pedroclericuzi.exercicioandroid.R;
-import com.example.pedroclericuzi.exercicioandroid.Service.ServiceLoading;
+import com.example.pedroclericuzi.exercicioandroid.service.ServiceLoading;
 import com.example.pedroclericuzi.exercicioandroid.model.modelJSON;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         unregisterReceiver(broadcastReceiver);
-        Intent it = new Intent(this, IntentServiceLoading.class);
-        it.putExtra("desligar", 1);
-        startService(it);
-        //stopService(it);
+        //Intent it = new Intent(this, IntentServiceLoading.class);
+        //it.putExtra("desligar", 1);
+        //startService(it);
+        stopService(it);
         super.onStop();
     }
 
